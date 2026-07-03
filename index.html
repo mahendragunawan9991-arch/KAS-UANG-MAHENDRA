@@ -213,23 +213,23 @@ function computeSaved(){
 
 async function loadState(){
   try{
-    const t = await window.storage.get('transactions', false);
-    if(t) state.transactions = JSON.parse(t.value);
+    const t = localStorage.getItem('bukukas_transactions');
+    if(t) state.transactions = JSON.parse(t);
   }catch(e){}
   try{
-    const g = await window.storage.get('goal', false);
-    if(g) state.goal = JSON.parse(g.value);
+    const g = localStorage.getItem('bukukas_goal');
+    if(g) state.goal = JSON.parse(g);
   }catch(e){}
   if(!Array.isArray(state.goal.history)) state.goal.history = [];
   render();
 }
 
 async function saveTransactions(){
-  try{ await window.storage.set('transactions', JSON.stringify(state.transactions), false); }
+  try{ localStorage.setItem('bukukas_transactions', JSON.stringify(state.transactions)); }
   catch(e){ console.error('gagal simpan transaksi', e); }
 }
 async function saveGoal(){
-  try{ await window.storage.set('goal', JSON.stringify(state.goal), false); }
+  try{ localStorage.setItem('bukukas_goal', JSON.stringify(state.goal)); }
   catch(e){ console.error('gagal simpan target', e); }
 }
 
